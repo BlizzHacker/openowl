@@ -1,0 +1,82 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "openowl"
+version = "0.1.0"
+description = "MCP server giving any AI assistant eyes and hands on your desktop — screenshots, clicking, typing, OCR, accessibility tree."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+keywords = ["mcp", "claude", "ai", "automation", "desktop", "ocr", "computer-use"]
+authors = [{ name = "Mihir Kanzariya", email = "kanzariyamihir@gmail.com" }]
+maintainers = [{ name = "Mihir Kanzariya", email = "kanzariyamihir@gmail.com" }]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Operating System :: MacOS",
+  "Operating System :: Microsoft :: Windows",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Libraries",
+]
+dependencies = [
+  "mcp>=1.0.0",
+  "mss>=9.0.0",
+  "pyautogui>=0.9.54",
+  "Pillow>=10.0.0",
+  "pyperclip>=1.9.0",
+  "httpx>=0.27.0",
+  "rapidfuzz>=3.0.0",
+  "certifi>=2024.0.0",
+]
+
+[project.optional-dependencies]
+macos = [
+  "pyobjc-core",
+  "pyobjc-framework-Cocoa",
+  "pyobjc-framework-Quartz",
+  "pyobjc-framework-Vision",
+  "pyobjc-framework-ApplicationServices",
+]
+windows = [
+  "pywinauto",
+  "pyvda",
+  "rapidocr-onnxruntime",
+  "numpy",
+]
+ocr = ["rapidocr-onnxruntime"]
+dev = [
+  "pytest>=8",
+  "ruff>=0.6",
+  "build",
+  "twine",
+  "numpy",
+]
+
+[project.scripts]
+openowl = "openowl.server:main"
+
+[project.urls]
+Homepage = "https://github.com/mihir-kanzariya/openowl"
+Repository = "https://github.com/mihir-kanzariya/openowl"
+Issues = "https://github.com/mihir-kanzariya/openowl/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
