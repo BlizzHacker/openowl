@@ -79,6 +79,10 @@ Permissions are remembered per-binary path. Reinstalling into the same venv keep
 
 Run `openowl --version` to print the version.
 
+## Pre-built workflows
+
+Looking for ready-made automation recipes? See **[mihir-kanzariya/openowl-templates](https://github.com/mihir-kanzariya/openowl-templates)** — a separate repo of pre-built workflows for openowl + Claude Code. Clone, configure, run.
+
 ## Platforms
 
 - **macOS** — full support (Accessibility + Screen Recording + Vision OCR APIs via PyObjC).
