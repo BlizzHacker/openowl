@@ -4,6 +4,8 @@ An MCP server that gives any AI assistant eyes and hands on your desktop — scr
 
 Apache-2.0 licensed. No account, no API key, no usage limits, no telemetry. 40+ tools.
 
+> **Prefer a hosted version?** A managed cloud build with a signed binary, one-click setup, and email support is available at [openowl.dev](https://openowl.dev/?utm_source=github&utm_medium=readme&utm_campaign=oss-repo). Same code, no setup.
+
 ## Install
 
 ### From source (recommended)
@@ -105,3 +107,7 @@ See `CONTRIBUTING.md` for the full workflow.
 ## License
 
 Apache License 2.0. See `LICENSE` and `NOTICE` for details, including attribution for inherited code.
+
+---
+
+Maintained by [Mihir Kanzariya](https://github.com/mihir-kanzariya). For a hosted, managed version with a signed binary and email support, see [openowl.dev](https://openowl.dev/?utm_source=github&utm_medium=readme-footer&utm_campaign=oss-repo).

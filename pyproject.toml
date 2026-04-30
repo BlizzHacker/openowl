@@ -63,9 +63,10 @@ dev = [
 openowl = "openowl.server:main"
 
 [project.urls]
-Homepage = "https://github.com/mihir-kanzariya/openowl"
+Homepage = "https://openowl.dev/?utm_source=github&utm_medium=pypi&utm_campaign=oss-repo"
 Repository = "https://github.com/mihir-kanzariya/openowl"
 Issues = "https://github.com/mihir-kanzariya/openowl/issues"
+"Hosted version" = "https://openowl.dev/?utm_source=github&utm_medium=pypi&utm_campaign=oss-repo"
 
 [tool.setuptools.packages.find]
 where = ["src"]
