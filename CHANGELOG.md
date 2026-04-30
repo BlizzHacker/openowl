@@ -9,9 +9,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 Initial public release.
 
 ### Added
-- FastMCP-based MCP server exposing 30+ tools for desktop automation:
+- FastMCP-based MCP server exposing 40 tools for desktop automation:
   screenshots, clicking, typing, OCR, window management, accessibility-tree
-  queries, workflow recording/replay, framework detection, screen diffing.
+  queries, workflow recording/replay, framework detection, screen diffing,
+  window watchers, virtual desktops.
 - macOS backend via PyObjC (Accessibility + Screen Recording APIs).
 - Windows backend via pywinauto + Win32.
 - `pip install openowl` and `uvx openowl` installation paths.
