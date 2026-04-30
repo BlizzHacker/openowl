@@ -1,28 +1,36 @@
 # openowl
 
-An MCP server that gives any AI assistant eyes and hands on your desktop — screenshots, clicking, typing, OCR, window management, accessibility-tree queries.
+An MCP server that gives any AI assistant eyes and hands on your desktop — screenshots, clicking, typing, OCR, window management, accessibility-tree queries, workflow recording.
 
-Apache-2.0 licensed. No account, no API key, no usage limits, no telemetry.
+Apache-2.0 licensed. No account, no API key, no usage limits, no telemetry. 40+ tools.
 
 ## Install
 
-### uvx (zero install)
+### From source (recommended)
 
 ```bash
+git clone https://github.com/mihir-kanzariya/openowl
+cd openowl
+python3 -m venv .venv && source .venv/bin/activate
+pip install -e ".[macos]"      # or [windows]
+openowl --version
+```
+
+`pip install -e .` adds the `openowl` console script to the venv. Anywhere that venv is on `PATH`, the command is callable.
+
+### From PyPI _(coming soon)_
+
+```bash
+pip install "openowl[macos]"   # or [windows]
+# or zero-install via uvx:
 uvx openowl
 ```
 
-### pip
-
-```bash
-pip install openowl
-# macOS:
-pip install "openowl[macos]"
-# Windows:
-pip install "openowl[windows]"
-```
+PyPI publish is queued for the first tagged release. Until then, install from source above.
 
 ## Configure your MCP client
+
+The server speaks stdio. Point any MCP client at the `openowl` command — the path it lives at depends on your install method.
 
 ### Claude Desktop
 
@@ -32,47 +40,49 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS)
 {
   "mcpServers": {
     "owl": {
-      "command": "uvx",
-      "args": ["openowl"]
+      "command": "/absolute/path/to/openowl/.venv/bin/openowl"
     }
   }
 }
 ```
 
+Replace the path with the output of `which openowl` after activating your venv. (Once PyPI publish lands you'll be able to use `"command": "uvx", "args": ["openowl"]` instead.)
+
 ### Claude Code
 
 ```bash
-claude mcp add owl --transport stdio -s user -- uvx openowl
+claude mcp add owl --transport stdio -s user -- /absolute/path/to/openowl/.venv/bin/openowl
 ```
 
 ### Codex / Cline / any MCP client
 
-Run `openowl` over stdio. Same configuration shape — point your client at the `openowl` command.
+Run the `openowl` binary over stdio. Same configuration shape — point your client at the absolute path.
 
 ## Permissions (macOS)
 
-On first run, macOS will prompt to grant **Accessibility** and **Screen Recording** permissions. The server checks for both and prints which are missing.
+On first run, macOS will prompt to grant **Accessibility** and **Screen Recording** permissions. The server checks both at startup and prints which are missing. Open System Settings → Privacy & Security → grant access → restart your MCP client.
 
-If you install via `pip`, the binary path is stable and macOS remembers granted permissions across runs. If you use `uvx`, the path may change between invocations and macOS will re-prompt — for daily use, prefer `pip install openowl[macos]`.
+Permissions are remembered per-binary path. Reinstalling into the same venv keeps them; switching to `uvx` (which uses an ephemeral path) re-prompts every run, so for daily use prefer the venv install above.
 
-## Tools
+## Tools (40)
 
 | Category | Tools |
 |---|---|
-| Screen | `screenshot`, `screenshot_diff` |
-| Input | `click`, `click_text`, `click_in_region`, `type_text`, `paste_text`, `send_keys`, `scroll`, `drag`, `hover`, `clipboard` |
-| Vision | `find_text`, `find_element`, `smart_find` |
-| Windows | `list_windows`, `focus_window`, `get_target_window`, `set_target_window` |
-| UI Automation | `list_elements`, `get_focused_element`, `click_element` |
-| Workflow | `record_workflow`, `replay_workflow_tool`, `list_workflows_tool`, `delete_workflow_tool` |
-| System | `launch_app`, `get_screen_size`, `get_mouse_position`, `detect_framework`, `configure_uac` |
+| **Screen capture** | `screenshot`, `screenshot_baseline`, `screenshot_diff`, `manage_screenshots`, `get_screen_size` |
+| **Input** | `click`, `type_text`, `paste_text`, `send_keys`, `scroll`, `drag`, `hover`, `get_mouse_position` |
+| **Click via search** | `click_text`, `click_in_region`, `click_element`, `find_text`, `find_element`, `smart_find` |
+| **Windows** | `list_windows`, `focus_window`, `launch_app`, `set_target_window`, `get_target_window`, `virtual_desktop` |
+| **UI Automation** | `list_elements`, `get_focused_element`, `ui_fingerprint`, `detect_framework` |
+| **Watching** | `wait_for_change`, `start_watcher`, `stop_watcher`, `get_notifications` |
+| **Workflow recording** | `record_workflow`, `replay_workflow_tool`, `list_workflows_tool`, `delete_workflow_tool` |
+| **System** | `clipboard`, `batch_actions`, `configure_uac` |
 
 Run `openowl --version` to print the version.
 
 ## Platforms
 
-- **macOS** — full support (Accessibility + Screen Recording APIs).
-- **Windows** — full support via pywinauto + Win32.
+- **macOS** — full support (Accessibility + Screen Recording + Vision OCR APIs via PyObjC).
+- **Windows** — full support via pywinauto + Win32 + RapidOCR.
 - **Linux** — not supported.
 
 ## Development
@@ -80,8 +90,10 @@ Run `openowl --version` to print the version.
 ```bash
 git clone https://github.com/mihir-kanzariya/openowl
 cd openowl
+python3 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev,macos]"   # or [dev,windows]
-pytest
+pytest                          # 20 tests
+ruff check .
 ```
 
 See `CONTRIBUTING.md` for the full workflow.
