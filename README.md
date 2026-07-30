@@ -1,5 +1,8 @@
 # openowl
 
+A project of the [Move Weight Foundation](https://foundation.moveweight.com), a
+501(c)(3).
+
 An MCP server that gives any AI assistant eyes and hands on your desktop — screenshots, clicking, typing, OCR, window management, accessibility-tree queries, workflow recording.
 
 Apache-2.0 licensed. No account, no API key, no usage limits, no telemetry. 40+ tools.
