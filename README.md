@@ -1,7 +1,7 @@
 # openowl
 
-A project of the [Move Weight Foundation](https://foundation.moveweight.com), a
-501(c)(3).
+A project of the [Move Weight Foundation](https://foundation.moveweight.com), an
+Oklahoma non-profit corporation with 501(c)(3) status pending.
 
 An MCP server that gives any AI assistant eyes and hands on your desktop — screenshots, clicking, typing, OCR, window management, accessibility-tree queries, workflow recording.
 
