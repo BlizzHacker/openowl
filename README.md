@@ -8,8 +8,7 @@ usage limits, no telemetry.
 > **About this fork.** OpenOwl was created by
 > [Mihir Kanzariya](https://github.com/mihir-kanzariya) and released under
 > Apache-2.0. The original source repository is no longer public, so this fork
-> preserves the open-source code and is maintained under the
-> [Move Weight Foundation](https://foundation.moveweight.com). The original
+> preserves the open-source code and is maintained here. The original
 > author offers a hosted, managed build at [openowl.dev](https://openowl.dev);
 > binary releases and a Homebrew tap live at
 > [openowl-releases](https://github.com/mihir-kanzariya/openowl-releases).
