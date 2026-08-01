@@ -1,45 +1,43 @@
 # openowl
 
-A project of the [Move Weight Foundation](https://foundation.moveweight.com), an
-Oklahoma non-profit corporation with 501(c)(3) status pending.
+An MCP server that gives any AI assistant eyes and hands on your desktop —
+screenshots, clicking, typing, OCR, window management, accessibility-tree
+queries, workflow recording. 40+ tools. Apache-2.0. No account, no API key, no
+usage limits, no telemetry.
 
-An MCP server that gives any AI assistant eyes and hands on your desktop — screenshots, clicking, typing, OCR, window management, accessibility-tree queries, workflow recording.
-
-Apache-2.0 licensed. No account, no API key, no usage limits, no telemetry. 40+ tools.
-
-> **Prefer a hosted version?** A managed cloud build with a signed binary, one-click setup, and email support is available at [openowl.dev](https://openowl.dev/?utm_source=github&utm_medium=readme&utm_campaign=oss-repo). Same code, no setup.
+> **About this fork.** OpenOwl was created by
+> [Mihir Kanzariya](https://github.com/mihir-kanzariya) and released under
+> Apache-2.0. The original source repository is no longer public, so this fork
+> preserves the open-source code and is maintained under the
+> [Move Weight Foundation](https://foundation.moveweight.com). The original
+> author offers a hosted, managed build at [openowl.dev](https://openowl.dev);
+> binary releases and a Homebrew tap live at
+> [openowl-releases](https://github.com/mihir-kanzariya/openowl-releases).
 
 ## Install
 
-### From source (recommended)
+### From source
 
 ```bash
-git clone https://github.com/mihir-kanzariya/openowl
+git clone https://github.com/BlizzHacker/openowl
 cd openowl
 python3 -m venv .venv && source .venv/bin/activate
 pip install -e ".[macos]"      # or [windows]
 openowl --version
 ```
 
-`pip install -e .` adds the `openowl` console script to the venv. Anywhere that venv is on `PATH`, the command is callable.
-
-### From PyPI _(coming soon)_
-
-```bash
-pip install "openowl[macos]"   # or [windows]
-# or zero-install via uvx:
-uvx openowl
-```
-
-PyPI publish is queued for the first tagged release. Until then, install from source above.
+`pip install -e .` adds the `openowl` console script to the venv. Anywhere that
+venv is on `PATH`, the command is callable.
 
 ## Configure your MCP client
 
-The server speaks stdio. Point any MCP client at the `openowl` command — the path it lives at depends on your install method.
+The server speaks stdio. Point any MCP client at the `openowl` command — the
+path it lives at depends on your install method.
 
 ### Claude Desktop
 
-Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
+Add to `~/Library/Application Support/Claude/claude_desktop_config.json`
+(macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
 
 ```json
 {
@@ -51,7 +49,7 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS)
 }
 ```
 
-Replace the path with the output of `which openowl` after activating your venv. (Once PyPI publish lands you'll be able to use `"command": "uvx", "args": ["openowl"]` instead.)
+Replace the path with the output of `which openowl` after activating your venv.
 
 ### Claude Code
 
@@ -61,13 +59,19 @@ claude mcp add owl --transport stdio -s user -- /absolute/path/to/openowl/.venv/
 
 ### Codex / Cline / any MCP client
 
-Run the `openowl` binary over stdio. Same configuration shape — point your client at the absolute path.
+Run the `openowl` binary over stdio. Same configuration shape — point your
+client at the absolute path.
 
 ## Permissions (macOS)
 
-On first run, macOS will prompt to grant **Accessibility** and **Screen Recording** permissions. The server checks both at startup and prints which are missing. Open System Settings → Privacy & Security → grant access → restart your MCP client.
+On first run, macOS will prompt to grant **Accessibility** and **Screen
+Recording** permissions. The server checks both at startup and prints which are
+missing. Open System Settings → Privacy & Security → grant access → restart
+your MCP client.
 
-Permissions are remembered per-binary path. Reinstalling into the same venv keeps them; switching to `uvx` (which uses an ephemeral path) re-prompts every run, so for daily use prefer the venv install above.
+Permissions are remembered per-binary path. Reinstalling into the same venv
+keeps them; an ephemeral install path re-prompts every run, so for daily use
+prefer the venv install above.
 
 ## Tools (40)
 
@@ -86,7 +90,9 @@ Run `openowl --version` to print the version.
 
 ## Pre-built workflows
 
-Looking for ready-made automation recipes? See **[mihir-kanzariya/openowl-templates](https://github.com/mihir-kanzariya/openowl-templates)** — a separate repo of pre-built workflows for openowl + Claude Code. Clone, configure, run.
+**[mihir-kanzariya/openowl-templates](https://github.com/mihir-kanzariya/openowl-templates)**
+is a separate repo of pre-built automation workflows for openowl + Claude Code.
+Clone, configure, run.
 
 ## Platforms
 
@@ -97,7 +103,7 @@ Looking for ready-made automation recipes? See **[mihir-kanzariya/openowl-templa
 ## Development
 
 ```bash
-git clone https://github.com/mihir-kanzariya/openowl
+git clone https://github.com/BlizzHacker/openowl
 cd openowl
 python3 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev,macos]"   # or [dev,windows]
@@ -109,8 +115,6 @@ See `CONTRIBUTING.md` for the full workflow.
 
 ## License
 
-Apache License 2.0. See `LICENSE` and `NOTICE` for details, including attribution for inherited code.
-
----
-
-Maintained by [Mihir Kanzariya](https://github.com/mihir-kanzariya). For a hosted, managed version with a signed binary and email support, see [openowl.dev](https://openowl.dev/?utm_source=github&utm_medium=readme-footer&utm_campaign=oss-repo).
+Apache License 2.0 — see `LICENSE` and `NOTICE`, which credits the original
+author. OpenOwl is copyright 2026 Mihir Kanzariya; this fork preserves that
+attribution as the license requires.
