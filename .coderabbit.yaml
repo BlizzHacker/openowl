@@ -1,0 +1,110 @@
+# yaml-language-server: $schema=https://storage.googleapis.com/coderabbit_public_assets/schema.v2.json
+language: en-US
+tone_instructions: >-
+  Be direct; skip praise and preamble. OpenOwl drives real Windows desktop input
+  on a user's machine. Prioritize input-safety, window-targeting correctness,
+  and destructive-action guards over style.
+early_access: false
+enable_free_tier: true
+
+reviews:
+  profile: chill
+  request_changes_workflow: false
+  high_level_summary: true
+  review_status: true
+  collapse_walkthrough: true
+  changed_files_summary: true
+  sequence_diagrams: true
+  estimate_code_review_effort: true
+  assess_linked_issues: true
+  related_issues: true
+  related_prs: true
+  suggested_labels: true
+  auto_apply_labels: false
+  suggested_reviewers: false
+  in_progress_fortune: false
+  poem: false
+  enable_prompt_for_ai_agents: true
+  abort_on_close: true
+
+  slop_detection:
+    enabled: true
+    label: slop
+
+  path_filters:
+    - "!**/dist/**"
+    - "!**/build/**"
+    - "!**/*.lock"
+    - "!**/__pycache__/**"
+
+  path_instructions:
+    - path: "src/**/*.py"
+      instructions: >-
+        This code synthesizes mouse and keyboard input against whatever is
+        actually on screen, so a targeting bug becomes an unintended click on
+        the user's real desktop rather than a caught exception.
+
+        Window targeting: flag any action that resolves a target by title
+        substring, index, or "topmost" without verifying the intended window is
+        still focused at the moment of the action. A stale handle between
+        resolve and act is a real hazard here, not a theoretical one.
+
+        Destructive input: key combinations and clicks that can close, delete,
+        or confirm need an explicit guard and must not be reachable from loosely
+        validated input. Flag anything that sends Enter, Delete, or a
+        confirmation chord into a window it did not verify.
+
+        Coordinates must be validated against actual screen bounds before
+        dispatch; clamping silently to an edge is preferable to clicking a
+        different monitor, but either way it should be deliberate and
+        documented.
+
+        Elevation and UAC: flag changes that broaden what runs elevated, or that
+        attempt to automate a UAC prompt.
+    - path: "**/*.py"
+      instructions: >-
+        Flag subprocess calls built by string concatenation from
+        externally-supplied values, and any use of shell=True with interpolated
+        input. Do not suggest type hints or docstrings purely for completeness
+        where surrounding code does not use them.
+    - path: "tests/**"
+      instructions: >-
+        Tests must not take over the real desktop or send live input to the
+        developer's session in a way that cannot be cleaned up. Flag tests that
+        move the physical cursor or send global hotkeys without isolation.
+    - path: ".github/workflows/**"
+      instructions: >-
+        Check for unpinned third-party actions, secrets exposed to
+        pull_request_target, and steps interpolating untrusted PR text into run
+        blocks.
+
+  auto_review:
+    enabled: true
+    auto_incremental_review: true
+    drafts: false
+    ignore_usernames:
+      - dependabot
+      - dependabot[bot]
+
+  tools:
+    ruff:
+      enabled: true
+    gitleaks:
+      enabled: true
+    semgrep:
+      enabled: true
+    actionlint:
+      enabled: true
+    zizmor:
+      enabled: true
+    languagetool:
+      enabled: false
+
+chat:
+  art: false
+  auto_reply: true
+
+knowledge_base:
+  opt_out: false
+  learnings:
+    scope: auto
